@@ -7,12 +7,9 @@ class Linode<T = any> {
     }
 
     insert(position: number, newValue: T) {
+        this.checkIndex(position)
         let $traverser: Linode<T> = this.head,
             index = 0;
-
-        if (this.length - 1 < position) {
-            throw Error("This Position Is Not In The List")
-        }
 
         while (index < position && $traverser.next) {
             $traverser = $traverser.next
@@ -28,13 +25,11 @@ class Linode<T = any> {
     }
 
     insertList(position: number, newList: Linode<T>) {
+        this.checkIndex(position)
         let $traverser: Linode<T> = this.head,
             index = 0;
 
-        if (this.length - 1 < position) {
-            throw Error("This Position Is Not In The List")
-        }
-
+        
         while (index < position && $traverser.next) {
             $traverser = $traverser.next
             index++
@@ -94,9 +89,8 @@ class Linode<T = any> {
             end = typeof endPosition === "number" ? endPosition : this.length - 1,
             $pointer: Linode<T> = this.head
 
-        if (start < 0 || start > this.length - 1) { throw Error("The start position must be greater than 0") }
-        if (end < 0 || end > this.length - 1) { throw Error("The end position must be less than the list length") }
-
+        this.checkIndex(start)
+        this.checkIndex(end)
 
         if (start === end) {
             console.warn("Cannot get slice since the start and ends are equal")
@@ -126,12 +120,12 @@ class Linode<T = any> {
 
     delete(position: number) {
         if (!this.next) return this
-        if (position > this.length - 1) throw Error("Position should not be longer than the list length")
+        if (position === 0) return this.head.next
+        this.checkIndex(position) 
         let $slow: Linode<T> = this.head;
 
         for ( let i = 0; i < position - 1; i++) {
             $slow = $slow.next!;
-            console.log({ i, val: $slow.val, position })
         }
 
         $slow.next = $slow?.next?.next ?? null
@@ -160,6 +154,12 @@ class Linode<T = any> {
             length: $length
         }
 
+
+    }
+
+    private checkIndex(index: number): void {
+        const isInvalid = index < 0 || index > this.length - 1
+        if (isInvalid) throw Error("Invalid")
 
     }
 
@@ -216,7 +216,7 @@ class Linode<T = any> {
 
 
 
-const listOne = new Linode<number>(2)
+/* const listOne = new Linode<number>(2)
 listOne.append(5)
 listOne.append(7)
 
@@ -235,4 +235,4 @@ listOne.insert(6, 3);
 const listThree = listOne.slice(0, 2)
 listThree.log()
 listThree.delete(2)
-listThree.log()
+listThree.log() */
