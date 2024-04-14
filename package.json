@@ -1,0 +1,18 @@
+{
+  "name": "dsa",
+  "version": "1.0.0",
+  "description": "Learning about Data Structures And Algorithms by Implementing Them and Testing",
+  "main": "index.ts",
+  "scripts": {},
+  "keywords": [
+    "dsa",
+    "algorithms",
+    "SWE",
+    "data-structures"
+  ],
+  "author": "Ayobami Ikuewumi",
+  "license": "MIT",
+  "dependencies": {
+    "@types/bun": "^1.0.12"
+  }
+}
